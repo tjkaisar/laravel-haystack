@@ -14,22 +14,16 @@ trait Stackable
 {
     /**
      * The Haystack the job has.
-     *
-     * @var Haystack
      */
     protected Haystack $haystack;
 
     /**
      * The ID of the haystack "bale". Used for deleting.
-     *
-     * @var int
      */
     protected int $haystackBaleId;
 
     /**
      * Get the job stack.
-     *
-     * @return Haystack
      */
     public function getHaystack(): Haystack
     {
@@ -39,7 +33,6 @@ trait Stackable
     /**
      * Set the Haystack onto the job.
      *
-     * @param  Haystack  $haystack
      * @return $this
      */
     public function setHaystack(Haystack $haystack): static
@@ -56,7 +49,7 @@ trait Stackable
      *
      * @throws StackableException
      */
-    public function nextJob(int|CarbonInterface $delayInSecondsOrCarbon = null): static
+    public function nextJob(int|CarbonInterface|null $delayInSecondsOrCarbon = null): static
     {
         if (config('haystack.process_automatically', false) === true) {
             throw new StackableException('The "nextJob" method is unavailable when "haystack.process_automatically" is enabled.');
@@ -70,12 +63,11 @@ trait Stackable
     /**
      * Dispatch the next bale in the haystack. Yee-haw!
      *
-     * @param  int|CarbonInterface|null  $delayInSecondsOrCarbon
      * @return $this
      *
      * @throws StackableException
      */
-    public function nextBale(int|CarbonInterface $delayInSecondsOrCarbon = null): static
+    public function nextBale(int|CarbonInterface|null $delayInSecondsOrCarbon = null): static
     {
         return $this->nextJob($delayInSecondsOrCarbon);
     }
@@ -83,7 +75,6 @@ trait Stackable
     /**
      * Release the job for haystack to process later.
      *
-     * @param  int|CarbonInterface  $delayInSecondsOrCarbon
      * @return $this
      */
     public function longRelease(int|CarbonInterface $delayInSecondsOrCarbon): static
@@ -122,13 +113,9 @@ trait Stackable
     /**
      * Append a job to the Haystack.
      *
-     * @param  ShouldQueue  $job
-     * @param  int  $delayInSeconds
-     * @param  string|null  $queue
-     * @param  string|null  $connection
      * @return $this
      */
-    public function appendToHaystack(ShouldQueue $job, int $delayInSeconds = 0, string $queue = null, string $connection = null): static
+    public function appendToHaystack(ShouldQueue $job, int $delayInSeconds = 0, ?string $queue = null, ?string $connection = null): static
     {
         $this->haystack->appendJob($job, $delayInSeconds, $queue, $connection);
 
@@ -137,8 +124,6 @@ trait Stackable
 
     /**
      * Get the haystack bale id
-     *
-     * @return int
      */
     public function getHaystackBaleId(): int
     {
@@ -148,7 +133,6 @@ trait Stackable
     /**
      * Set the Haystack bale ID.
      *
-     * @param  int  $haystackBaleId
      * @return $this
      */
     public function setHaystackBaleId(int $haystackBaleId): static
@@ -161,7 +145,6 @@ trait Stackable
     /**
      * Pause the haystack. We also need to delete the current row.
      *
-     * @param  int|CarbonInterface  $delayInSecondsOrCarbon
      * @return $this
      *
      * @throws StackableException
@@ -187,12 +170,9 @@ trait Stackable
     /**
      * Set data on the haystack.
      *
-     * @param  string  $key
-     * @param  mixed  $value
-     * @param  string|null  $cast
      * @return $this
      */
-    public function setHaystackData(string $key, mixed $value, string $cast = null): static
+    public function setHaystackData(string $key, mixed $value, ?string $cast = null): static
     {
         $this->haystack->setData($key, $value, $cast);
 
@@ -201,10 +181,6 @@ trait Stackable
 
     /**
      * Get data on the haystack.
-     *
-     * @param  string  $key
-     * @param  mixed|null  $default
-     * @return mixed
      */
     public function getHaystackData(string $key, mixed $default = null): mixed
     {

@@ -48,7 +48,7 @@ test('a haystack can be created with middleware', function () {
         ->addJob(new NameJob('Sam'))
         ->addJob(new NameJob('Gareth'))
         ->withMiddleware([
-            new Middleware(),
+            new Middleware,
         ])
         ->create();
 

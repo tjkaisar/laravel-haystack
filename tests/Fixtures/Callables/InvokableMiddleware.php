@@ -7,7 +7,7 @@ class InvokableMiddleware
     public function __invoke(): array
     {
         return [
-            new Middleware(),
+            new Middleware,
         ];
     }
 }

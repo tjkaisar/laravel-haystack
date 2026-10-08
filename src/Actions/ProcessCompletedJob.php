@@ -12,8 +12,6 @@ class ProcessCompletedJob
 {
     /**
      * Constructor
-     *
-     * @param  JobProcessed  $jobProcessed
      */
     public function __construct(protected JobProcessed $jobProcessed)
     {
@@ -22,8 +20,6 @@ class ProcessCompletedJob
 
     /**
      * Attempt to find the haystack_id on the processed job.
-     *
-     * @return void
      */
     public function execute(): void
     {

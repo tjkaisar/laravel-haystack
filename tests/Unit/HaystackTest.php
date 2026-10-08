@@ -101,7 +101,7 @@ test('you can store a serialized closure on a haystack', function () {
 });
 
 test('you can store an invokable class on a haystack', function () {
-    $invokableClass = new InvokableClass();
+    $invokableClass = new InvokableClass;
 
     $haystack = new Haystack;
     $haystack->on_then = $invokableClass;

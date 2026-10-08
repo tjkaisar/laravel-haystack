@@ -4,6 +4,7 @@ namespace Sammyjo20\LaravelHaystack\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Sammyjo20\LaravelHaystack\Casts\SerializeJob;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Sammyjo20\LaravelHaystack\Contracts\StackableJob;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -28,7 +29,7 @@ class HaystackBale extends Model
     /**
      * Create a new factory instance for the model.
      *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     * @return Factory
      */
     protected static function newFactory()
     {
@@ -37,8 +38,6 @@ class HaystackBale extends Model
 
     /**
      * The Haystack this row belongs to.
-     *
-     * @return BelongsTo
      */
     public function haystack(): BelongsTo
     {
@@ -47,8 +46,6 @@ class HaystackBale extends Model
 
     /**
      * Get the job already configured.
-     *
-     * @return StackableJob
      */
     public function configuredJob(): StackableJob
     {

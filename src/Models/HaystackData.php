@@ -3,6 +3,7 @@
 namespace Sammyjo20\LaravelHaystack\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Sammyjo20\LaravelHaystack\Database\Factories\HaystackDataFactory;
@@ -19,7 +20,7 @@ class HaystackData extends Model
     /**
      * Create a new factory instance for the model.
      *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     * @return Factory
      */
     protected static function newFactory()
     {
@@ -28,8 +29,6 @@ class HaystackData extends Model
 
     /**
      * The Haystack this row belongs to.
-     *
-     * @return BelongsTo
      */
     public function haystack(): BelongsTo
     {
@@ -38,9 +37,6 @@ class HaystackData extends Model
 
     /**
      * Set the cast attribute and apply the casts.
-     *
-     * @param  string|null  $cast
-     * @return void
      */
     public function setCastAttribute(?string $cast): void
     {
@@ -54,9 +50,6 @@ class HaystackData extends Model
 
     /**
      * Get the cast value.
-     *
-     * @param $value
-     * @return mixed
      */
     public function getValueAttribute($value): mixed
     {

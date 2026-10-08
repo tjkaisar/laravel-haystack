@@ -6,6 +6,7 @@ use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Prunable;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Sammyjo20\LaravelHaystack\Concerns\ManagesBales;
 use Sammyjo20\LaravelHaystack\Casts\SerializeClosure;
@@ -44,7 +45,7 @@ class Haystack extends Model
     /**
      * Create a new factory instance for the model.
      *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     * @return Factory
      */
     protected static function newFactory()
     {
@@ -53,8 +54,6 @@ class Haystack extends Model
 
     /**
      * Get the prunable model query.
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function prunable(): Builder
     {
@@ -72,8 +71,6 @@ class Haystack extends Model
 
     /**
      * The Haystack's bales.
-     *
-     * @return HasMany
      */
     public function bales(): HasMany
     {
@@ -82,8 +79,6 @@ class Haystack extends Model
 
     /**
      * The Haystack's data.
-     *
-     * @return HasMany
      */
     public function data(): HasMany
     {
@@ -92,8 +87,6 @@ class Haystack extends Model
 
     /**
      * Start building a Haystack.
-     *
-     * @return HaystackBuilder
      */
     public static function build(): HaystackBuilder
     {
@@ -102,8 +95,6 @@ class Haystack extends Model
 
     /**
      * Denotes if the haystack has started.
-     *
-     * @return bool
      */
     public function getStartedAttribute(): bool
     {
@@ -112,8 +103,6 @@ class Haystack extends Model
 
     /**
      * Denotes if the haystack has finished.
-     *
-     * @return bool
      */
     public function getFinishedAttribute(): bool
     {

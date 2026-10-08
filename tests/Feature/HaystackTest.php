@@ -1,6 +1,7 @@
 <?php
 
 use function Pest\Laravel\travel;
+
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Queue;
 use Sammyjo20\LaravelHaystack\Models\Haystack;
@@ -113,7 +114,7 @@ test('when a haystack is finished the then and finally methods are executed', fu
 
 test('when a haystack is failed the then and finally methods are executed', function () {
     Haystack::build()
-        ->addJob(new FailJob())
+        ->addJob(new FailJob)
         ->then(function () {
             cache()->put('then', true);
         })

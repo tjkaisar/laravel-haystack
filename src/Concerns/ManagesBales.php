@@ -9,6 +9,7 @@ use InvalidArgumentException;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Sammyjo20\LaravelHaystack\Data\NextJob;
+use Sammyjo20\LaravelHaystack\Models\Haystack;
 use Sammyjo20\LaravelHaystack\Models\HaystackBale;
 use Sammyjo20\LaravelHaystack\Models\HaystackData;
 use Sammyjo20\LaravelHaystack\Helpers\CarbonHelper;
@@ -20,8 +21,6 @@ trait ManagesBales
 {
     /**
      * Get the next job row in the Haystack.
-     *
-     * @return HaystackBale|null
      */
     public function getNextJobRow(): ?HaystackBale
     {
@@ -30,8 +29,6 @@ trait ManagesBales
 
     /**
      * Get the next job from the Haystack.
-     *
-     * @return NextJob|null
      */
     public function getNextJob(): ?NextJob
     {
@@ -67,12 +64,8 @@ trait ManagesBales
 
     /**
      * Dispatch the next job.
-     *
-     * @param  StackableJob|null  $job
-     * @param  int|CarbonInterface|null  $delayInSecondsOrCarbon
-     * @return void
      */
-    public function dispatchNextJob(StackableJob $job = null, int|CarbonInterface $delayInSecondsOrCarbon = null): void
+    public function dispatchNextJob(?StackableJob $job = null, int|CarbonInterface|null $delayInSecondsOrCarbon = null): void
     {
         // If the resume_at has been set, and the date is in the future, we're not allowed to process
         // the next job, so we stop.
@@ -120,8 +113,6 @@ trait ManagesBales
 
     /**
      * Start the Haystack.
-     *
-     * @return void
      */
     public function start(): void
     {
@@ -132,8 +123,6 @@ trait ManagesBales
 
     /**
      * Restart the haystack
-     *
-     * @return void
      */
     public function restart(): void
     {
@@ -142,9 +131,6 @@ trait ManagesBales
 
     /**
      * Finish the Haystack.
-     *
-     * @param  bool  $fail
-     * @return void
      */
     public function finish(bool $fail = false): void
     {
@@ -173,8 +159,6 @@ trait ManagesBales
 
     /**
      * Fail the Haystack.
-     *
-     * @return void
      */
     public function fail(): void
     {
@@ -183,14 +167,8 @@ trait ManagesBales
 
     /**
      * Append a new job to the job stack.
-     *
-     * @param  ShouldQueue  $job
-     * @param  int  $delayInSeconds
-     * @param  string|null  $queue
-     * @param  string|null  $connection
-     * @return void
      */
-    public function appendJob(ShouldQueue $job, int $delayInSeconds = 0, string $queue = null, string $connection = null): void
+    public function appendJob(ShouldQueue $job, int $delayInSeconds = 0, ?string $queue = null, ?string $connection = null): void
     {
         $pendingJob = CreatePendingHaystackBale::execute($job, $delayInSeconds, $queue, $connection);
 
@@ -199,9 +177,6 @@ trait ManagesBales
 
     /**
      * Append the pending job to the Haystack.
-     *
-     * @param  PendingHaystackBale  $pendingJob
-     * @return void
      */
     public function appendPendingJob(PendingHaystackBale $pendingJob): void
     {
@@ -215,10 +190,6 @@ trait ManagesBales
 
     /**
      * Execute the closure.
-     *
-     * @param  Closure|null  $closure
-     * @param  Collection|null  $data
-     * @return void
      */
     protected function executeClosure(?Closure $closure, ?Collection $data = null): void
     {
@@ -229,9 +200,6 @@ trait ManagesBales
 
     /**
      * Pause the haystack.
-     *
-     * @param  CarbonImmutable  $resumeAt
-     * @return void
      */
     public function pause(CarbonImmutable $resumeAt): void
     {
@@ -245,12 +213,9 @@ trait ManagesBales
     /**
      * Store data on the Haystack.
      *
-     * @param  string  $key
-     * @param  mixed  $value
-     * @param  string|null  $cast
-     * @return ManagesBales|\Sammyjo20\LaravelHaystack\Models\Haystack
+     * @return ManagesBales|Haystack
      */
-    public function setData(string $key, mixed $value, string $cast = null): self
+    public function setData(string $key, mixed $value, ?string $cast = null): self
     {
         if (is_null($cast) && is_string($value) === false && is_int($value) === false) {
             throw new InvalidArgumentException('You must specify a cast if the value is not a string or integer.');
@@ -266,10 +231,6 @@ trait ManagesBales
 
     /**
      * Retrieve data by a key from the Haystack.
-     *
-     * @param  string  $key
-     * @param  mixed|null  $default
-     * @return mixed
      */
     public function getData(string $key, mixed $default = null): mixed
     {
@@ -280,8 +241,6 @@ trait ManagesBales
 
     /**
      * Retrieve all the data from the Haystack.
-     *
-     * @return Collection
      */
     public function allData(): Collection
     {
@@ -293,8 +252,6 @@ trait ManagesBales
     /**
      * Conditionally retrieve all the data from the Haystack depending on
      * if we are able to return the data.
-     *
-     * @return Collection|null
      */
     protected function conditionallyGetAllData(): ?Collection
     {

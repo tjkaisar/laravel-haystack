@@ -33,7 +33,7 @@ test('a stackable job can call the next job', function () {
 test('a stackable job can finish a haystack early', function () {
     Haystack::build()
         ->addJob(new CacheJob('name', 'Sam'))
-        ->addJob(new ExcitedJob())
+        ->addJob(new ExcitedJob)
         ->addJob(new CacheJob('legend', 'Gareth'))
         ->dispatch();
 
@@ -44,7 +44,7 @@ test('a stackable job can finish a haystack early', function () {
 test('a stackable job can fail a haystack early', function () {
     Haystack::build()
         ->addJob(new CacheJob('name', 'Sam'))
-        ->addJob(new FailJob())
+        ->addJob(new FailJob)
         ->addJob(new CacheJob('legend', 'Gareth'))
         ->dispatch();
 

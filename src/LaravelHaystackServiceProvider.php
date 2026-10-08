@@ -42,8 +42,6 @@ class LaravelHaystackServiceProvider extends PackageServiceProvider
 
     /**
      * Listen to jobs.
-     *
-     * @return void
      */
     public function listenToJobs(): void
     {

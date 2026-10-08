@@ -9,9 +9,6 @@ class ClosureHelper
 {
     /**
      * Create a closure from a given callable.
-     *
-     * @param  Closure|callable  $value
-     * @return Closure
      */
     public static function fromCallable(Closure|callable $value): Closure
     {

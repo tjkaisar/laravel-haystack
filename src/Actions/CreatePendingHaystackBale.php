@@ -9,14 +9,8 @@ class CreatePendingHaystackBale
 {
     /**
      * Create a new PendingHaystackRow.
-     *
-     * @param  StackableJob  $job
-     * @param  int  $delayInSeconds
-     * @param  string|null  $queue
-     * @param  string|null  $connection
-     * @return PendingHaystackBale
      */
-    public static function execute(StackableJob $job, int $delayInSeconds = 0, string $queue = null, string $connection = null): PendingHaystackBale
+    public static function execute(StackableJob $job, int $delayInSeconds = 0, ?string $queue = null, ?string $connection = null): PendingHaystackBale
     {
         return new PendingHaystackBale($job, $delayInSeconds, $queue, $connection);
     }

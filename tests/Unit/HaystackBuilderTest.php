@@ -90,9 +90,9 @@ test('you can specify a closure to happen on an erroneous haystack', function ()
 test('you can specify middleware as a closure, invokable class or an array', function () {
     $builder = new HaystackBuilder;
 
-    $builder->withMiddleware(fn () => [new Middleware()]);
+    $builder->withMiddleware(fn () => [new Middleware]);
 
-    expect($builder->getGlobalMiddleware())->toEqual(fn () => [new Middleware()]);
+    expect($builder->getGlobalMiddleware())->toEqual(fn () => [new Middleware]);
 
     $builder->withMiddleware(new InvokableMiddleware);
 
@@ -100,7 +100,7 @@ test('you can specify middleware as a closure, invokable class or an array', fun
 
     $builder->withMiddleware([new Middleware]);
 
-    expect($builder->getGlobalMiddleware())->toEqual(fn () => [new Middleware()]);
+    expect($builder->getGlobalMiddleware())->toEqual(fn () => [new Middleware]);
 });
 
 test('you can create a haystack from a builder', function () {

@@ -10,6 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Sammyjo20\LaravelHaystack\Concerns\Stackable;
 use Sammyjo20\LaravelHaystack\Contracts\StackableJob;
+use Sammyjo20\LaravelHaystack\Tests\Exceptions\StackableException;
 
 class AutoLongReleaseJob implements ShouldQueue, StackableJob
 {
@@ -30,7 +31,7 @@ class AutoLongReleaseJob implements ShouldQueue, StackableJob
      *
      * @return void
      *
-     * @throws \Sammyjo20\LaravelHaystack\Tests\Exceptions\StackableException
+     * @throws StackableException
      */
     public function handle()
     {

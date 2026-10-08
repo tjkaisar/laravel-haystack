@@ -15,71 +15,51 @@ class HaystackBuilder
 {
     /**
      * Closure to run when the Haystack is finished.
-     *
-     * @var Closure|null
      */
     protected ?Closure $onThen = null;
 
     /**
      * Closure to run when the Haystack has failed.
-     *
-     * @var Closure|null
      */
     protected ?Closure $onCatch = null;
 
     /**
      * Closure to run when the Haystack has finished.
-     *
-     * @var Closure|null
      */
     protected ?Closure $onFinally = null;
 
     /**
      * Closure to run when the Haystack has been paused.
-     *
-     * @var Closure|null
      */
     protected ?Closure $onPaused = null;
 
     /**
      * The jobs to be added to the Haystack.
-     *
-     * @var Collection
      */
     protected Collection $jobs;
 
     /**
      * Global delay in seconds.
-     *
-     * @var int
      */
     protected int $globalDelayInSeconds = 0;
 
     /**
      * Global queue.
-     *
-     * @var string|null
      */
     protected ?string $globalQueue = null;
 
     /**
      * Global connection.
-     *
-     * @var string|null
      */
     protected ?string $globalConnection = null;
 
     /**
      * Global middleware.
-     *
-     * @var Closure|null
      */
     protected ?Closure $globalMiddleware = null;
 
     /**
      * Should we return the data when the haystack finishes?
-     *
-     * @var bool
      */
     protected bool $returnDataOnFinish = true;
 
@@ -94,7 +74,6 @@ class HaystackBuilder
     /**
      * Provide a closure that will run when the haystack is complete.
      *
-     * @param  Closure|callable  $closure
      * @return $this
      */
     public function then(Closure|callable $closure): static
@@ -107,7 +86,6 @@ class HaystackBuilder
     /**
      * Provide a closure that will run when the haystack fails.
      *
-     * @param  Closure|callable  $closure
      * @return $this
      */
     public function catch(Closure|callable $closure): static
@@ -120,7 +98,6 @@ class HaystackBuilder
     /**
      * Provide a closure that will run when the haystack finishes.
      *
-     * @param  Closure|callable  $closure
      * @return $this
      */
     public function finally(Closure|callable $closure): static
@@ -133,7 +110,6 @@ class HaystackBuilder
     /**
      * Provide a closure that will run when the haystack is paused.
      *
-     * @param  Closure|callable  $closure
      * @return $this
      */
     public function paused(Closure|callable $closure): static
@@ -146,13 +122,9 @@ class HaystackBuilder
     /**
      * Add a job to the haystack.
      *
-     * @param  StackableJob  $job
-     * @param  int  $delayInSeconds
-     * @param  string|null  $queue
-     * @param  string|null  $connection
      * @return $this
      */
-    public function addJob(StackableJob $job, int $delayInSeconds = 0, string $queue = null, string $connection = null): static
+    public function addJob(StackableJob $job, int $delayInSeconds = 0, ?string $queue = null, ?string $connection = null): static
     {
         $pendingHaystackRow = CreatePendingHaystackBale::execute($job, $delayInSeconds, $queue, $connection);
 
@@ -166,13 +138,9 @@ class HaystackBuilder
      *
      * @alias addJob()
      *
-     * @param  StackableJob  $job
-     * @param  int  $delayInSeconds
-     * @param  string|null  $queue
-     * @param  string|null  $connection
      * @return $this
      */
-    public function addBale(StackableJob $job, int $delayInSeconds = 0, string $queue = null, string $connection = null): static
+    public function addBale(StackableJob $job, int $delayInSeconds = 0, ?string $queue = null, ?string $connection = null): static
     {
         return $this->addJob($job, $delayInSeconds, $queue, $connection);
     }
@@ -180,7 +148,6 @@ class HaystackBuilder
     /**
      * Set a global delay on the jobs.
      *
-     * @param  int  $seconds
      * @return $this
      */
     public function withDelay(int $seconds): static
@@ -193,7 +160,6 @@ class HaystackBuilder
     /**
      * Set a global queue for the jobs.
      *
-     * @param  string  $queue
      * @return $this
      */
     public function onQueue(string $queue): static
@@ -206,7 +172,6 @@ class HaystackBuilder
     /**
      * Set a global connection for the jobs.
      *
-     * @param  string  $connection
      * @return $this
      */
     public function onConnection(string $connection): static
@@ -219,7 +184,6 @@ class HaystackBuilder
     /**
      * Set a global middleware closure to run.
      *
-     * @param  Closure|callable|array  $value
      * @return $this
      */
     public function withMiddleware(Closure|callable|array $value): static
@@ -235,8 +199,6 @@ class HaystackBuilder
 
     /**
      * Create the Haystack
-     *
-     * @return Haystack
      */
     public function create(): Haystack
     {
@@ -245,8 +207,6 @@ class HaystackBuilder
 
     /**
      * Dispatch the Haystack.
-     *
-     * @return Haystack
      */
     public function dispatch(): Haystack
     {
@@ -259,9 +219,6 @@ class HaystackBuilder
 
     /**
      * Map the jobs to be ready for inserting.
-     *
-     * @param  Haystack  $haystack
-     * @return array
      */
     protected function prepareJobsForInsert(Haystack $haystack): array
     {
@@ -280,8 +237,6 @@ class HaystackBuilder
 
     /**
      * Create the haystack.
-     *
-     * @return Haystack
      */
     protected function createHaystack(): Haystack
     {
@@ -313,8 +268,6 @@ class HaystackBuilder
 
     /**
      * Get all the jobs in the builder.
-     *
-     * @return Collection
      */
     public function getJobs(): Collection
     {
@@ -323,8 +276,6 @@ class HaystackBuilder
 
     /**
      * Get the closure for the "onThen".
-     *
-     * @return Closure|null
      */
     public function getOnThen(): ?Closure
     {
@@ -333,8 +284,6 @@ class HaystackBuilder
 
     /**
      * Get the closure for the "onCatch".
-     *
-     * @return Closure|null
      */
     public function getOnCatch(): ?Closure
     {
@@ -343,8 +292,6 @@ class HaystackBuilder
 
     /**
      * Get the closure for the "onFinally".
-     *
-     * @return Closure|null
      */
     public function getOnFinally(): ?Closure
     {
@@ -353,8 +300,6 @@ class HaystackBuilder
 
     /**
      * Get the time for the "withDelay".
-     *
-     * @return int
      */
     public function getGlobalDelayInSeconds(): int
     {
@@ -363,8 +308,6 @@ class HaystackBuilder
 
     /**
      * Get the global queue
-     *
-     * @return string|null
      */
     public function getGlobalQueue(): ?string
     {
@@ -373,8 +316,6 @@ class HaystackBuilder
 
     /**
      * Get the global connection.
-     *
-     * @return string|null
      */
     public function getGlobalConnection(): ?string
     {
@@ -383,8 +324,6 @@ class HaystackBuilder
 
     /**
      * Get the closure for the global middleware.
-     *
-     * @return Closure|null
      */
     public function getGlobalMiddleware(): ?Closure
     {
